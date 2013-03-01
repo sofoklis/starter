@@ -43,9 +43,12 @@ libraryDependencies <++=
 	case(scala, lift, jetty, squeryl, h2, slf4j, junit) => Seq(
 	"net.liftweb" %% "lift-webkit" % lift % "compile",
 	"org.squeryl" %% "squeryl" % squeryl % "compile->default",
-	"com.h2database" % "h2" % h2 % "compile->default",
+	"com.h2database" % "h2" % h2, //% "compile->default",
 	"org.slf4j" % "slf4j-log4j12" % slf4j % "compile->default",
 	"cc.co.scala-reactive" %% "reactive-web" % "0.3.0",
+	"com.lambdaworks" % "scrypt" % "1.3.3",
+	"org.scalatest" %% "scalatest" % "2.0.M5b" % "test",
+	"org.scalacheck" %% "scalacheck" % "1.10.0" % "test",
 	"org.eclipse.jetty" % "jetty-webapp" % "8.1.7.v20120910" % "container,compile",
-   "org.eclipse.jetty.orbit" % "javax.servlet" % "3.0.0.v201112011016" % "container,compile" artifacts Artifact("javax.servlet", "jar", "jar")) 
+    "org.eclipse.jetty.orbit" % "javax.servlet" % "3.0.0.v201112011016" % "container,compile" artifacts Artifact("javax.servlet", "jar", "jar")) 
 }
