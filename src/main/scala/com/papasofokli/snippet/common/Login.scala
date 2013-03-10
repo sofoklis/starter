@@ -8,57 +8,77 @@ import JE._
 import net.liftweb.util._
 import Helpers._
 import net.liftweb.common.Loggable
+import com.papasofokli.util.security.Authentication
+import com.papasofokli.model.common.User
+import com.papasofokli.model.full.ImplicitVal._
+import com.papasofokli.util.session.SessionVariables
+import com.papasofokli.snippet.component._
+import com.papasofokli.snippet.component.AlertType
+import scala.xml.NodeSeq
 
 class Login extends Loggable {
+  val successPage = "/static/seaman"
+  var unsuccessfullTries = 0
 
   var email = ""
   var password = ""
 
-  def updateEmail(value: String): JsCmd = {
-    email = value
-    Noop
-  }
-
-  def updatePassword(value: String): JsCmd = {
-    password = value
-    Noop
-  }
-
   def aCall(id: String, fun: String ⇒ JsCmd): GUIDJsExp =
     SHtml.ajaxCall(JsRaw("$('#" + id + "').val()"), fun)
 
-  val emailCall = aCall("email", updateEmail).exp.toJsCmd
-  val passwordCall = aCall("password", updatePassword).exp.toJsCmd
+  val emailCall = aCall("email", email = _).exp.toJsCmd
+  val passwordCall = aCall("password", password = _).exp.toJsCmd
+
+  val loginACall: GUIDJsExp = SHtml.ajaxCall(JsRaw(""), login)
 
   def login(dummy: String): JsCmd = {
-    println("login")
-    logger.info(s"Athentigating email:$email password:$password")
-    Noop
+    val user: Option[User] = User.findUserByEmail(email)
+
+    val validCredentials = user match {
+      case None => false
+      case Some(u) => Authentication.check(password, u.hashedPasswd)
+    }
+
+    if (validCredentials) {
+      logger.info("athentication for $email successfull")
+      SessionVariables.AuthenticatedUser.set(user)
+      S.redirectTo(successPage)
+    } else {
+      unsuccessfullTries += 1
+      logger.info("athentication for $email unsuccessfull")
+      SessionVariables.AuthenticatedUser.set(None)
+    }
+    SHtml.ajaxInvoke(message.setHtml _)
   }
 
-  lazy val buttonCall: (String, net.liftweb.http.js.JsExp) =
-    SHtml.ajaxCall(JsRaw(""), login)
+  val message = SHtml.idMemoize(pi ⇒ {
+    logger.info(s"$unsuccessfullTries")
+    val alert = AlertMessage.render("Authentication failed", AlertType.Error).get
+
+    //logger.info(al)
+    if (unsuccessfullTries > 0) "#errorMessage *" #> alert
+    else "#errorMessage *" #> NodeSeq.Empty
+  })
 
   def render: CssSel =
-    "#script" #> script &
+    if (SessionVariables.AuthenticatedUser.get == None) {
+      S.appendJs(jsRaw)
       "#email [value]" #> email &
-      "#password [value]" #> password &
-      "#login [onClick]" #> buttonCall &
-      "#loginscript" #> script
+        "#password [value]" #> "" &
+        "#errorMessageout" #> message
+    } else {
+      // No need to render if user is already logged in, simply redirect to successPage
+      S.redirectTo(successPage)
+    }
 
-  def script =
-    Script(JsRaw("""
+  val jsRaw = JsRaw("""
     	$(function() {
-    		$('#email').keyup(function()
-    		{
-    			""" + emailCall + """
+    		$('#login').click(function(){
+    			""" + emailCall + """;
+    			""" + passwordCall + """;
+    			""" + loginACall.exp.toJsCmd + """;
     		});
     	})
-    	$(function() {
-    		$('#password').keyup(function()
-    		{
-    			""" + passwordCall + """
-    		});
-    	})
-    """))
+    """)
 }
+

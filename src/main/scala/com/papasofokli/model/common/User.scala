@@ -4,9 +4,8 @@ import org.squeryl._
 import org.squeryl.PrimitiveTypeMode._
 import org.squeryl.dsl._
 import org.squeryl.annotations.Column
-import com.papasofokli.util.Authentication
 
-case class User private (
+case class User(
   id: Long,
   email: String,
   hashedPasswd: String) extends KeyedEntity[Long] with OrderedTable {

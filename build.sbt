@@ -37,11 +37,18 @@ seq(com.github.siasia.WebPlugin.webSettings :_*)
 
 scalacOptions ++= Seq("-deprecation", "-unchecked")
 
+// If using JRebel
+scanDirectories in Compile := Nil
+
+logLevel := Level.Info
+//Level.Info.Debug
+
 libraryDependencies <++= 
 	(scalaVersion, liftVersion, jettyVersion, squerylVersion, h2Version, slf4jVersion, junitVersion)
 {
 	case(scala, lift, jetty, squeryl, h2, slf4j, junit) => Seq(
 	"net.liftweb" %% "lift-webkit" % lift % "compile",
+	"net.liftweb" %% "lift-mapper" % lift % "compile",
 	"org.squeryl" %% "squeryl" % squeryl % "compile->default",
 	"com.h2database" % "h2" % h2, //% "compile->default",
 	"org.slf4j" % "slf4j-log4j12" % slf4j % "compile->default",

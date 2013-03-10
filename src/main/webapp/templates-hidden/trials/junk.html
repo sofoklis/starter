@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="utf-8">
+			<title>Starter</title>
+			<meta content="Starter project" name="description">
+
+				<meta content="Sofoklis Papasofokli" name="author">
+					<meta content="starter project keywords" name="keyword">
+
+
+
+
+						<meta content="width=device-width, initial-scale=1" name="viewport">
+
+
+
+							<link rel="stylesheet" href="../acme/css/bootstrap.min.css"
+								id="bootstrap-style">
+								<link rel="stylesheet" href="../acme/css/bootstrap-responsive.min.css">
+									<link rel="stylesheet" href="../acme/css/style.css" id="base-style">
+										<link rel="stylesheet" href="../acme/css/style-responsive.css"
+											id="base-style-responsive">
+
+											<link type="text/css" rel="stylesheet"
+												href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext">
+
+
+
+
+
+
+
+
+
+
+												<link href="../acme/img/browser-firefox@2x.png" rel="shortcut icon">
+
+
+													<style type="text/css">
+														body { background: url(../acme/img/bg-login.jpg) !important; }
+													</style>
+
+
+
+													<script src="../acme/js/jquery-1.9.1.min.js"></script>
+													<script src="../acme/js/jquery-migrate-1.0.0.min.js"></script>
+
+													<script src="../acme/js/jquery-ui-1.10.0.custom.min.js"></script>
+
+													<script src="../acme/js/jquery.ui.touch-punch.js"></script>
+
+													<script src="../acme/js/modernizr.js"></script>
+
+													<script src="../acme/js/bootstrap.min.js"></script>
+
+													<script src="../acme/js/jquery.cookie.js"></script>
+
+													<script src="../acme/js/fullcalendar.min.js"></script>
+
+													<script src="../acme/js/jquery.dataTables.min.js"></script>
+
+													<script src="../acme/js/excanvas.js"></script>
+													<script src="../acme/js/jquery.flot.js"></script>
+													<script src="../acme/js/jquery.flot.pie.js"></script>
+													<script src="../acme/js/jquery.flot.stack.js"></script>
+													<script src="../acme/js/jquery.flot.resize.min.js"></script>
+
+													<script src="../acme/js/jquery.chosen.min.js"></script>
+
+													<script src="../acme/js/jquery.uniform.min.js"></script>
+
+													<script src="../acme/js/jquery.cleditor.min.js"></script>
+
+													<script src="../acme/js/jquery.noty.js"></script>
+
+													<script src="../acme/js/jquery.elfinder.min.js"></script>
+
+													<script src="../acme/js/jquery.raty.min.js"></script>
+
+													<script src="../acme/js/jquery.iphone.toggle.js"></script>
+
+													<script src="../acme/js/jquery.uploadify-3.1.min.js"></script>
+
+													<script src="../acme/js/jquery.gritter.min.js"></script>
+
+													<script src="../acme/js/jquery.imagesloaded.js"></script>
+
+													<script src="../acme/js/jquery.masonry.min.js"></script>
+
+													<script src="../acme/js/jquery.knob.modified.js"></script>
+
+													<script src="../acme/js/jquery.sparkline.min.js"></script>
+
+													<script src="../acme/js/counter.js"></script>
+
+													<script src="../acme/js/retina.js"></script>
+
+													<script src="../acme/js/custom.js"></script>
+
+
+	</head>
+
+	<div id="content" class="container-fluid">
+		<div id="content" class="row-fluid">
+
+			<div class="row-fluid">
+				<div id="loginbox" class="login-box">
+					<div class="icons">
+						<a href="index.html">
+							<i class="halflings-icon home"></i>
+						</a>
+						<a href="#">
+							<i class="halflings-icon cog"></i>
+						</a>
+					</div>
+					<h2>Login to your account</h2>
+					<form action="" class="form-horizontal">
+						<fieldset>
+							<div title="Username" class="input-prepend">
+								<span class="add-on">
+									<i class="halflings-icon user"></i>
+								</span>
+								<input value="" placeholder="type email" type="text" id="email"
+									name="username" class="input-large span10">
+							</div>
+							<div class="clearfix"></div>
+							<div title="Password" class="input-prepend">
+								<span class="add-on">
+									<i class="halflings-icon lock"></i>
+								</span>
+								<input value="" placeholder="type password" type="password"
+									id="password" name="password" class="input-large span10">
+							</div>
+							<span id="errorMessageout">
+								<span id="errorMessage"></span>
+							</span>
+							<div class="clearfix"></div>
+						</fieldset>
+					</form>
+					<label for="remember" class="remember">
+						<input id="remember" type="checkbox">
+							Remember me
+					</label>
+					<div class="button-login">
+						<button
+							onClick="liftAjax.lift_ajaxHandler('F804076440177JYW30C=' + encodeURIComponent(), null, null, null)"
+							id="login" class="btn btn-primary">Login</button>
+					</div>
+					<div class="clearfix"></div>
+					<hr>
+						<h3>Forgot Password?</h3>
+						<p>
+							No problem,
+							<a href="#">click here</a>
+							to get a new password.
+						</p>
+						<script id="loginscript" type="text/javascript">
+							// <![CDATA[
+
+    	$(function() {
+    		$('#email').focusout(function()
+    		{
+    			liftAjax.lift_ajaxHandler('F804076440174AHT3VR=' + encodeURIComponent($('#email').val()), null, null, null)
+    		});
+    		$('#email').keyup(function()
+    		{
+    			liftAjax.lift_ajaxHandler('F804076440174AHT3VR=' + encodeURIComponent($('#email').val()), null, null, null)
+    		});
+    	})
+    	$(function() {
+    		$('#password').focusout(function()
+    		{
+    			liftAjax.lift_ajaxHandler('F8040764401750QCYZX=' + encodeURIComponent($('#password').val()), null, null, null)
+    		});
+    		$('#password').keyup(function()
+    		{
+    			liftAjax.lift_ajaxHandler('F8040764401750QCYZX=' + encodeURIComponent($('#password').val()), null, null, null)
+    		});
+    	})
+    ;
+// ]]>
+						</script>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</html>  
+  

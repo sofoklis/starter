@@ -1,7 +1,6 @@
 package com.papasofokli.model.common
 import org.squeryl.PrimitiveTypeMode._
 import org.squeryl._
-import adapters.H2Adapter
 
 trait CommonSchema extends Schema {
 
