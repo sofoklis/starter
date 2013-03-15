@@ -8,16 +8,21 @@ import JE._
 import net.liftweb.util._
 import Helpers._
 import net.liftweb.common.Loggable
+import scala.xml.NodeSeq
 import com.papasofokli.util.security.Authentication
 import com.papasofokli.model.common.User
 import com.papasofokli.model.full.ImplicitVal._
 import com.papasofokli.util.session.SessionVariables
 import com.papasofokli.snippet.component._
 import com.papasofokli.snippet.component.AlertType
-import scala.xml.NodeSeq
+import com.papasofokli.snippet.full._
 
 class Login extends Loggable {
-  val successPage = "/static/seaman"
+  val successPage = SessionVariables.RedirectAfterLogin.get match {
+    case Some(r) => r
+    case None => defaultAfterLogin
+  }
+
   var unsuccessfullTries = 0
 
   var email = ""
@@ -42,20 +47,18 @@ class Login extends Loggable {
     if (validCredentials) {
       logger.info("athentication for $email successfull")
       SessionVariables.AuthenticatedUser.set(user)
+      SessionVariables.RedirectAfterLogin(None)
       S.redirectTo(successPage)
     } else {
       unsuccessfullTries += 1
-      logger.info("athentication for $email unsuccessfull")
+      logger.info(s"athentication for $email unsuccessfull $unsuccessfullTries times")
       SessionVariables.AuthenticatedUser.set(None)
     }
     SHtml.ajaxInvoke(message.setHtml _)
   }
 
   val message = SHtml.idMemoize(pi ⇒ {
-    logger.info(s"$unsuccessfullTries")
     val alert = AlertMessage.render("Authentication failed", AlertType.Error).get
-
-    //logger.info(al)
     if (unsuccessfullTries > 0) "#errorMessage *" #> alert
     else "#errorMessage *" #> NodeSeq.Empty
   })
@@ -68,6 +71,7 @@ class Login extends Loggable {
         "#errorMessageout" #> message
     } else {
       // No need to render if user is already logged in, simply redirect to successPage
+      SessionVariables.RedirectAfterLogin(None)
       S.redirectTo(successPage)
     }
 

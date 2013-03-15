@@ -10,7 +10,7 @@ case class User(
   email: String,
   hashedPasswd: String) extends KeyedEntity[Long] with OrderedTable {
 
-  val name = email
+  def name = email
 
   def this(firstName: String, lastName: String, email: String, password: String) = this(0, email, password)
 

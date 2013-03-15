@@ -11,7 +11,7 @@ object FullDatabaseSchema extends Loggable with CommonSchema {
 
   def initH2Session = {
     SessionFactory.concreteFactory = Some(() ⇒ Session.create(
-      java.sql.DriverManager.getConnection("jdbc:h2:~/h2db/starterdb;AUTO_SERVER=TRUE"),
+      java.sql.DriverManager.getConnection("jdbc:h2:/home/sofoklis/h2db/starterdb;AUTO_SERVER=TRUE"),
       //java.sql.DriverManager.getConnection("jdbc:h2:tcp://127.0.1.1:9092/~/test"),
       //java.sql.DriverManager.getConnection("jdbc:h2:mem:test"),
       new H2Adapter))

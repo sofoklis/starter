@@ -3,10 +3,26 @@ import java.util.Date
 import org.squeryl.PrimitiveTypeMode._
 import java.util.Calendar
 import java.util.GregorianCalendar
+import scala.util.Random
+import net.liftweb.common.Loggable
 
-object ImportSampleData {
+object ImportSampleData extends Loggable {
+
+  def generateRandomDate: Date = {
+    // Get a new random instance, seeded from the clock
+    val rndrnd = new Random()
+    val calendar = Calendar.getInstance
+    calendar.set(1920, Calendar.JANUARY, 1)
+    val date1920 = calendar.getTime()
+    // Get an Epoch value roughly between 1940 and 2010
+    // -946771200000L = January 1, 1940
+    // Add up to 70 years to it (using modulus on the next long)
+    val ms: Long = date1920.getTime + (math.random * (80L * 365 * 24 * 60 * 60 * 1000)).toLong
+    new Date(ms)
+  }
 
   def loadData(implicit schema: CommonSchema) {
+    logger.info("importing common setup data")
     ImportCountries
     addStateProvince
     addPerson
@@ -17,23 +33,45 @@ object ImportSampleData {
 
   def ImportCountries(implicit schema: CommonSchema) {
     object IsoCountry {
-      def apply(user: String, domain: String) = user + "@" + domain
+      def apply(name: String, code: String) = name + ";" + code
       def unapply(str: String): Option[(String, String)] = {
         val parts = str split ";"
         if (parts.length == 2) Some(parts(0), parts(1)) else None
       }
     }
-    val sourceFolder: String = System.getenv("PROJECTFOLDER") + "/setupdata/common"
+    val sourceFolder: String = System.getenv("PROJECTFOLDER") + "/sampledata/common"
 
     val filePath = sourceFolder + "/" + "list-en1-semic-3.txt"
     import scala.io.Source._
     val lines = fromFile(filePath).getLines
 
     lines.foreach(line ⇒ line match {
-      case IsoCountry(name, code) ⇒ { schema.country.insert(Country(0, code, name)) }
+      case IsoCountry(name, code) ⇒ schema.country.insert(Country(0, code, name))
       case _ ⇒ println(line)
     })
 
+  }
+
+  def addPerson(implicit schema: CommonSchema) {
+    object P {
+      def apply(firstName: String, lastName: String) = firstName + "," + lastName
+      def unapply(str: String): Option[(String, String)] = {
+        val parts = str split ","
+        if (parts.length > 1) Some(parts(0), parts(1)) else None
+      }
+    }
+    val sourceFolder: String = System.getenv("PROJECTFOLDER") + "/sampledata/common"
+
+    val filePath = sourceFolder + "/" + "randomNames.csv"
+    import scala.io.Source._
+    val lines = fromFile(filePath).getLines
+    //logger.info(s"importing ${lines.length} persons")
+
+    schema.person.insert(Person("Sofoklis", None, "Papasofokli", Gender.Male, generateRandomDate))
+    lines.foreach(line ⇒ line match {
+      case P(fn, ln) ⇒ { logger.info(s"$fn"); schema.person.insert(Person(fn, None, ln, Gender.Male, generateRandomDate)) }
+      case _ ⇒ println(line)
+    })
   }
 
   def addStateProvince(implicit schema: CommonSchema) {
@@ -52,25 +90,6 @@ object ImportSampleData {
     schema.contactInfoType.insert(ContactInfoType(0, "Cell", None, None, None))
     schema.contactInfoType.insert(ContactInfoType(0, "Phone", None, None, None))
     schema.contactInfoType.insert(ContactInfoType(0, "Pager", None, None, None))
-  }
-
-  def addPerson(implicit schema: CommonSchema) {
-    val calendar = Calendar.getInstance
-    calendar.set(1981, Calendar.JANUARY, 1)
-
-    schema.person.insert(Person(0, "Sofoklis", None, "Papasofokli", Gender.Male, calendar.getTime()))
-    calendar.set(1982, Calendar.JULY, 15)
-    schema.person.insert(Person(0, "George", None, "Papasofokli", Gender.Male, calendar.getTime()))
-    calendar.set(1987, Calendar.JULY, 17)
-    schema.person.insert(Person(0, "Koulla", None, "Papasofokli", Gender.Female, calendar.getTime()))
-    calendar.set(1980, Calendar.AUGUST, 15)
-    schema.person.insert(Person(0, "Aristidis", None, "Theoharous", Gender.Male, calendar.getTime()))
-    calendar.set(1980, Calendar.SEPTEMBER, 29)
-    schema.person.insert(Person(0, "Maria", None, "Theoharous", Gender.Female, calendar.getTime()))
-    calendar.set(1980, Calendar.AUGUST, 16)
-    schema.person.insert(Person(0, "Dimos", None, "Hadjilias", Gender.Male, calendar.getTime()))
-    calendar.set(1980, Calendar.OCTOBER, 14)
-    schema.person.insert(Person(0, "Michalis", None, "Patsalides", Gender.Male, calendar.getTime()))
   }
 
   def addContactInfo(implicit schema: CommonSchema) {
