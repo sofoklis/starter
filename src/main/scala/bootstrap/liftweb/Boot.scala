@@ -52,7 +52,7 @@ class Boot extends Loggable {
     LiftRules.htmlProperties.default.set((r: Req) =>
       new Html5Properties(r.userAgent))
 
-    if (false) {
+    if (true) {
       FullDatabaseSchema.recreateDb
       logger.info("Database recreated")
     }
