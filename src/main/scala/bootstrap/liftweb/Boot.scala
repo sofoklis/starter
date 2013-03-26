@@ -29,7 +29,6 @@ class Boot extends Loggable {
   }
 
   def loggedIn = If(checkLoggedIn, () =>
-    //TemporaryRedirectResponse(S.request.get.uri, S.request.get, S.request.get.cookies: _*))
     RedirectResponse(loginPage))
 
   def boot {
@@ -52,7 +51,7 @@ class Boot extends Loggable {
     LiftRules.htmlProperties.default.set((r: Req) =>
       new Html5Properties(r.userAgent))
 
-    if (true) {
+    if (false) {
       FullDatabaseSchema.recreateDb
       logger.info("Database recreated")
     }

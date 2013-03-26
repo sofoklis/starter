@@ -10,7 +10,6 @@ object ImportSampleData extends Loggable {
 
   def generateRandomDate: Date = {
     // Get a new random instance, seeded from the clock
-    val rndrnd = new Random()
     val calendar = Calendar.getInstance
     calendar.set(1920, Calendar.JANUARY, 1)
     val date1920 = calendar.getTime()

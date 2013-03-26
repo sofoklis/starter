@@ -31,6 +31,8 @@ resolvers += "Typesafe releases" at "http://oss.sonatype.org/content/repositorie
 
 resolvers += "Typesafe Snapshots" at "http://oss.sonatype.org/content/repositories/releases"
 
+resolvers += "spray repo" at "http://repo.spray.io"
+
 resolvers += "Web plugin repo" at "http://siasia.github.com/maven2"
 
 seq(com.github.siasia.WebPlugin.webSettings :_*)
@@ -47,6 +49,10 @@ libraryDependencies <++=
 	(scalaVersion, liftVersion, jettyVersion, squerylVersion, h2Version, slf4jVersion, junitVersion)
 {
 	case(scala, lift, jetty, squeryl, h2, slf4j, junit) => Seq(
+	"com.typesafe.akka"	%% "akka-actor" 	% "2.1.2", 
+  	"com.typesafe.akka" %% "akka-testkit" 	% "2.1.2",
+	"io.spray" % "spray-caching" % "1.1-M7",
+	"org.scalaz"  %% "scalaz-core" % "7.0.0-M8",
 	"net.liftweb" %% "lift-webkit" % lift % "compile",
 	"net.liftweb" %% "lift-mapper" % lift % "compile",
 	"org.squeryl" %% "squeryl" % squeryl % "compile->default",

@@ -8,3 +8,6 @@ case class Seaman(
   def this(pId: Long, rId: Long) = this(0, pId, rId)
 
 }
+object Seaman {
+  def apply(pId: Long, rId: Long) = new Seaman(pId, rId)
+}
