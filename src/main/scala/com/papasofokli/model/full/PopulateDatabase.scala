@@ -27,9 +27,6 @@ object PopulateDatabase extends Loggable {
     User.insert(User("sofoklis28@gmail.com", Authentication.encrypt("password")))
     User.insert(User("sofoklis29@gmail.com", Authentication.encrypt("password")))
     User.insert(User("sofoklis30@gmail.com", Authentication.encrypt("password")))
-    User.insert(User("leshi@gmail.com", Authentication.encrypt("leshi")))
-    User.insert(User("mikis@gmail.com", Authentication.encrypt("mikis")))
-    User.insert(User("raivo@gmail.com", Authentication.encrypt("mf")))
   }
 
 }

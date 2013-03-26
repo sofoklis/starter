@@ -12,5 +12,5 @@ export PATH="$PATH:~/devbin"
 ###"-javaagent:/home/sofoklis/ZeroTurnaround/JRebel/jrebel.jar -Xms256m -Xmx512m -XX:MaxPermSize=256m $JAVA_OPTS"
 
 export PROJECTFOLDER="/home/sofoklis/workspace/starter"
-
+export RECREATEDB="no"
      

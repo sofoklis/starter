@@ -51,7 +51,8 @@ class Boot extends Loggable {
     LiftRules.htmlProperties.default.set((r: Req) =>
       new Html5Properties(r.userAgent))
 
-    if (false) {
+    val recreateDb = System.getenv("RECREATEDB") == "yes"
+    if (recreateDb) {
       FullDatabaseSchema.recreateDb
       logger.info("Database recreated")
     }
