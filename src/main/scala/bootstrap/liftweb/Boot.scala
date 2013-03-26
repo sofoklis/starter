@@ -41,7 +41,7 @@ class Boot extends Loggable {
 
     // Build SiteMap
     def sitemap(): SiteMap = SiteMap(
-      Menu.i("Home") / "common" / "index" >> loggedIn,
+      Menu.i("Home") / "common" / "person" >> loggedIn,
       Menu.i("Seaman") / "crewing" / ** >> loggedIn, // everything under crewing needs to have a user logged in
       Menu.i("Login") / "common" / "login")
 

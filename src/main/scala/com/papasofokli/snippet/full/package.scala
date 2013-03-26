@@ -4,6 +4,7 @@ package object full {
 
   // Common pages
   val loginPage = "/common/login"
+  val person = "common/person"
 
   // Crewing pages
   val crewPage = "/crewing/crew"

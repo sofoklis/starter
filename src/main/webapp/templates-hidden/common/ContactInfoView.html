@@ -1,0 +1,48 @@
+<div data-lift="common/ContactInfoView">
+	<div id="contactInfo" >
+		<table id="contactList">
+			<tr id="contactLi">
+				<td><strong><abbr id="contactType" title="Cellphone">Cell</abbr></strong></td>
+				<td><strong> : </strong></td>
+				<td><span id="contactNumber">99358515</span></td>
+			</tr>		
+		</table>
+		<br/>
+		<button id="editButton" class="btn btn-primary" data-toggle="modal" href="#contactInfoEditModal">
+					<i class="icon-edit icon-white"></i> Edit</button>
+					
+		<div id="contactInfoEditModal" class="fade modal hide">
+  			<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3>Edit Contact Information</h3>
+		  	</div> 
+			<div class="modal-body">
+				<div class="form-horizontal">
+					<fieldset id="contactInfoFieldSet">
+						<div id="existingNumbersEdit">
+							<div id="contactInfoControl" class="control-group">
+								<select class="span4" id="contactTypeSelect"><option class="span4" id="contactOption">Mobile</option></select>
+								<input id="contactNumberEdit" type="text"/>
+								<button id="contactInfoDeleteButton" class="btn btn-danger">
+								  <i class="icon-trash icon-white"></i> Delete</button>
+								<span id="contactInfoHelp" class="help-inline"></span>
+							</div> 
+						</div>
+						<div id="addNumbers">
+							<div id="fieldNameControl" class="control-group">
+								<button id="addContactButton" class="btn btn-info">
+								<i class="icon-plus icon-white"></i> Add new</button>
+							</div> 
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="saveChanges" href="#" class="btn btn-primary">Save Changes</button>
+				<button id="close" href="#" class="btn" data-dismiss="modal">Close
+				</button>
+			</div>
+			<script id="modalscript" type="text/javascript"></script>
+		</div>			
+	</div>
+</div>

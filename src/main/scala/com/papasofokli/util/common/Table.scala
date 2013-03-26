@@ -3,6 +3,9 @@ package com.papasofokli.util.common
 import com.papasofokli.model.shipmanagement.Rank
 import com.papasofokli.model.shipmanagement.ShipmanagementSchema
 
+/**
+ * Table implementation to help create the Datatable using a javascript arrays, still in progress
+ */
 case class Header(title: String)
 
 trait CellValue {
@@ -29,7 +32,7 @@ object Table {
 
   import org.squeryl.PrimitiveTypeMode._
 
-  def searchForBooks(name: String, offset: Int, pageLength: Int)(implicit schema: CommonSchema) =
+  def searchForPeople(name: String, offset: Int, pageLength: Int)(implicit schema: CommonSchema) =
     inTransaction {
       from(schema.person)(p =>
         where(p.firstName like name)

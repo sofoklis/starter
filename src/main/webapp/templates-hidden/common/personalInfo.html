@@ -1,0 +1,59 @@
+<span data-lift="common/PersonalInfo" class="span11">
+	<span class="row-fluid">
+		<span id="personalInfo" class="span12 well">
+			<img class="span2 img-polaroid" src="../../images/photo.jpg" alt="sofoklis" />
+			<span class="span6 offset2">
+				<span class="form-horizontal">
+					<h1 id="name">Sofoklis Papasofokli</h1>
+					<dl class="dl-horizontal">
+						<dt>First Name<dd><span id="firstName">Sofoklis</span></dd></dt>
+						<dt>Middle Name<dd><span id="middleName"></span></dd></dt>
+						<dt>Last Name<dd><span id="lastName">Papasofokli</span></dd></dt>
+						<dt>Gender</dt><dd><span id="gender">Male</span></dd>
+						<dt>Age</dt><dd><span id="age">11</span></dd>
+						<dt><abbr title="Date of Birth">DOB</abbr></dt>
+						<dd><span id="dob">1-1-1981</span><span id="wishes" class="label label-info">Happy Birthday</span></dd>
+					</dl>
+				</span>
+				<button id="editButton" class="btn btn-primary" data-toggle="modal"
+					href="#personalInfoEditModal">
+					<i class="icon-edit icon-white"></i>
+					Edit Personal Information
+				</button>
+
+				<div id="personalInfoEditModal" class="fade modal hide">
+					<div class="modal-header">
+						<a class="close" data-dismiss="modal">×</a>
+						<h3>Edit Personal Information</h3>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<fieldset>
+								<span data-lift="embed?what=templates-hidden/component/input?name=firstName"></span>
+								<span data-lift="embed?what=templates-hidden/component/input?name=middleName"></span>
+								<span data-lift="embed?what=templates-hidden/component/input?name=lastName"></span>
+								<span data-lift="embed?what=templates-hidden/component/select?name=gender"></span>
+								<span data-lift="embed?what=templates-hidden/component/input?name=dateOfBirth"></span>
+							</fieldset>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="saveChanges" href="#" class="btn btn-primary">Save Changes</button>
+						<button id="close" href="#" class="btn" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</span>
+		</span>
+	</span>
+
+	<span class="row-fluid">
+		<section class="span6 well">
+			<h3>Address List</h3>
+			<span data-lift="embed?what=templates-hidden/common/AddressView"></span>
+		</section>
+		<span class="span6 well">
+			<h2>Contact Info</h2>
+			<span data-lift="embed?what=templates-hidden/common/ContactInfoView"></span>
+		</span>
+	</span>
+</span>
