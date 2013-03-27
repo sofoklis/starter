@@ -20,7 +20,7 @@ import com.papasofokli.snippet.full._
 class Login extends Loggable {
   val successPage = SessionVariables.RedirectAfterLogin.get match {
     case Some(r) => r
-    case None => defaultAfterLogin
+    case None => defaultAfterLoginPage
   }
 
   var unsuccessfullTries = 0

@@ -14,10 +14,10 @@ class Select extends SingelValueControlT {
 
   def calculateValueToSendToServerJsCmd = JsRaw("$('#" + fieldName + "Select" + id + "').val()")
 
-  def aCall: (String, net.liftweb.http.js.JsExp) =
+  def aCall: GUIDJsExp =
     SHtml.ajaxCall(calculateValueToSendToServerJsCmd, callback(fieldName))
 
-  def clientCall = aCall._2.toJsCmd
+  def clientCall = aCall.exp.toJsCmd
 
   def optionList: List[String] = List("Male", "Female")
 

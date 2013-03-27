@@ -30,7 +30,11 @@ object Person {
   def apply(firstName: String, middleName: Option[String], lastName: String, gender: Gender, dob: Date) =
     new Person(0, firstName, middleName, lastName, gender, dob)
 
+  def getById(sid: Option[Long])(implicit schema: CommonSchema) = inTransaction {
+    sid.flatMap(id => schema.person.lookup(id))
+  }
+
   def getAll(implicit schema: CommonSchema) = inTransaction { schema.person.seq }
-  def getAllSorted(implicit schema: CommonSchema) = inTransaction { from(schema.person)(p => where(p.id gte 0) select (p) orderBy (p.firstName asc, p.lastName asc, p.dateOfBirth asc)) }
+  def getAllSorted(implicit schema: CommonSchema) = inTransaction { from(schema.person)(p => where(p.id gte 0) select (p) orderBy (p.id asc)) }
 }
 

@@ -43,7 +43,7 @@ class PersonalInfo extends Loggable with Observing {
     S.appendJs(modalscript)
     "#personalInfo" #> SHtml.idMemoize(pi ⇒
       {
-
+        logger.info(PersonalInfo.PersonOption)
         Control.Validator(PersonalIfnoFieldValidator)
         val person = PersonalInfo.PersonOption.getOrElse(inTransaction { commonSchema.person.lookup(1l).get })
 
@@ -110,6 +110,6 @@ class PersonalInfo extends Loggable with Observing {
 }
 
 object PersonalInfo {
-  object PersonOption extends RequestVar[Option[Person]](None)
+  object PersonOption extends SessionVar[Option[Person]](None)
 }
 
